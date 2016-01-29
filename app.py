@@ -9,9 +9,11 @@ from flask import render_template
 from flask import request
 from flask import url_for
 from flask import jsonify # For AJAX transactions
+from math import modf
 
 import json
 import logging
+
 
 # Date handling 
 import arrow # Replacement for datetime, based on moment.js
@@ -62,13 +64,23 @@ def page_not_found(error):
 @app.route("/_calc_times")
 def calc_times():
   """
-  Calculates open/close times from miles, using rules 
+  Calculates open/close times from kilometers, using rules 
   described at http://www.rusa.org/octime_alg.html.
-  Expects one URL-encoded argument, the number of miles. 
+  Expects one URL-encoded argument, the number of kilometers. 
   """
   app.logger.debug("Got a JSON request");
-  miles = request.args.get('miles', 0, type=int)
-  return jsonify(result=miles * 2)
+  kilometers = request.args.get('kilometers', 0, type=int)
+
+  if kilometers <= 200:
+      return jsonify(result=timesForSpeed(kilometers, 15, 34))
+  elif kilometers <= 400:
+      return jsonify(result=timesForSpeed(kilometers, 15, 32))
+  elif kilometers <= 600:
+      return jsonify(result=timesForSpeed(kilometers, 15, 30))
+  elif kilometers <= 1000:
+      return jsonify(result=timesForSpeed(kilometers, 11.428, 28))
+  elif kilometers <= 1300:
+      return jsonify(result=timesForSpeed(kilometers, 13.333, 26))
  
 #################
 #
@@ -92,6 +104,18 @@ def format_arrow_time( time ):
     except:
         return "(bad time)"
 
+###############
+# Private Funcs
+###############
+
+def timesForSpeed(kilometers, minSpeed, maxSpeed):
+    hour = int(modf(kilometers / maxSpeed)[1])
+    minutes = int(modf(kilometers / maxSpeed)[0] * 60)
+    open = "Opening Time: " + str(hour) + ":" + str(minutes)
+    hour = int(modf(kilometers / minSpeed)[1])
+    minutes = int(modf(kilometers / minSpeed)[0] * 60)
+    close = "   Closing Time: " + str(hour) + ":" + str(minutes)
+    return open + close
 
 
 #############

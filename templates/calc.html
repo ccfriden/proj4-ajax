@@ -53,8 +53,11 @@
 <form role="form">
 <div class="row">
   <div class="col-md-2">
-    <input type="text" class="form-control"
-     name="miles" value="Distance in miles"/>
+    <label>Checkpoint 1:</label>
+  </div>
+  <div class="col-md-2">
+    <input id="kilometers1" type="text" class="form-control"
+     name="kilometers" value="Distance in kilometers"/>
   </div>
   <div class="col-md-4">
     <input type="text" class="form-control"
@@ -67,8 +70,11 @@
 
 <div class="row">
   <div class="col-md-2">
-    <input type="text" class="form-control"
-     name="miles" value="Distance in miles"/>
+    <label>Checkpoint 2:</label>
+  </div>
+  <div class="col-md-2">
+    <input id="kilometers2" type="text" class="form-control"
+     name="kilometers" value="Distance in kilometers"/>
   </div>
   <div class="col-md-4">
     <input type="text" class="form-control"
@@ -81,8 +87,11 @@
 
 <div class="row">
   <div class="col-md-2">
-    <input type="text" class="form-control"
-     name="miles" value="Distance in miles"/>
+    <label>Checkpoint 3:</label>
+  </div>
+  <div class="col-md-2">
+    <input id="kilometers3" type="text" class="form-control"
+     name="kilometers" value="Distance in kilometers"/>
   </div>
   <div class="col-md-4">
     <input type="text" class="form-control"
@@ -92,20 +101,134 @@
     <span class="times form-control">(times)</span>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-2">
+    <label>Checkpoint 4:</label>
+  </div>
+  <div class="col-md-2">
+    <input id="kilometers4" type="text" class="form-control"
+     name="kilometers" value="Distance in kilometers"/>
+  </div>
+  <div class="col-md-4">
+    <input type="text" class="form-control"
+      name="location" value="location" />
+  </div>
+  <div class="col-md-4">
+    <span class="times form-control">(times)</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <label>Checkpoint 5:</label>
+  </div>
+  <div class="col-md-2">
+    <input id="kilometers5" type="text" class="form-control"
+     name="kilometers" value="Distance in kilometers"/>
+  </div>
+  <div class="col-md-4">
+    <input type="text" class="form-control"
+      name="location" value="location" />
+  </div>
+  <div class="col-md-4">
+    <span class="times form-control">(times)</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <label>Checkpoint 6:</label>
+  </div>
+  <div class="col-md-2">
+    <input id="kilometers6" type="text" class="form-control"
+     name="kilometers" value="Distance in kilometers"/>
+  </div>
+  <div class="col-md-4">
+    <input type="text" class="form-control"
+      name="location" value="location" />
+  </div>
+  <div class="col-md-4">
+    <span class="times form-control">(times)</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <label>Checkpoint 7:</label>
+  </div>
+  <div class="col-md-2">
+    <input id="kilometers7" type="text" class="form-control"
+     name="kilometers" value="Distance in kilometers"/>
+  </div>
+  <div class="col-md-4">
+    <input type="text" class="form-control"
+      name="location" value="location" />
+  </div>
+  <div class="col-md-4">
+    <span class="times form-control">(times)</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <label>Checkpoint 8:</label>
+  </div>
+  <div class="col-md-2">
+    <input id="kilometers8" type="text" class="form-control"
+     name="kilometers" value="Distance in kilometers"/>
+  </div>
+  <div class="col-md-4">
+    <input type="text" class="form-control"
+      name="location" value="location" />
+  </div>
+  <div class="col-md-4">
+    <span class="times form-control">(times)</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <label>Checkpoint 9:</label>
+  </div>
+  <div class="col-md-2">
+    <input id="kilometers9" type="text" class="form-control"
+     name="kilometers" value="Distance in kilometers"/>
+  </div>
+  <div class="col-md-4">
+    <input type="text" class="form-control"
+      name="location" value="location" />
+  </div>
+  <div class="col-md-4">
+    <span class="times form-control">(times)</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <label>Checkpoint 10:</label>
+  </div>
+  <div class="col-md-2">
+    <input id="kilometers10" type="text" class="form-control"
+     name="kilometers" value="Distance in kilometers"/>
+  </div>
+  <div class="col-md-4">
+    <input type="text" class="form-control"
+      name="location" value="location" />
+  </div>
+  <div class="col-md-4">
+    <span class="times form-control">(times)</span>
+  </div>
+</div>
+
 </form>
 
 <script type="text/javascript">
 
   $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 
-  $(document).ready(function(){
-   // Do the following when the page is finished loading
-
-      // When a field named 'miles' is changed ...
-      $('input[name="miles"]').change(
-          // ... execute this function
-          function(){
-              var e_miles = $(this).val();
+   $("#kilometers1, #kilometers2, #kilometers3, #kilometers4, #kilometers5, #kilometers6, #kilometers7, #kilometers8, #kilometers9, #kilometers10").keyup(function() {
+              var e_kilometers = $(this).val();
 
               var target = $(this).parents(".row").find(".times");
 
@@ -116,17 +239,14 @@
               // AJAX request
               $.getJSON($SCRIPT_ROOT + '/_calc_times',
                   // The object to pass to the server
-                  { miles: e_miles },
+                  { kilometers: e_kilometers },
                   // The function to call with the response
                   function(data) {
                      var times = data.result;
                      // alert("Got a response: " +  times);
                      target.text(times);
                   }); // End of the call to getJSON
-          });  // End of the function to be called when field changes
-              
-
-     });   // end of what we do on document ready
+   });  // End of the function to be called when field changes
 
 </script>
 
