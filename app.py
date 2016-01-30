@@ -75,6 +75,8 @@ def calc_times():
   open_times = []
   closeTimeFinal = [0, 0]
   openTimeFinal = [0, 0]
+  openTimeHours = ""
+  closeTimeMinutes = ""
 
   if kilometers < 0:
       return jsonify(result="You can't travel negative kilometers stupid!")
@@ -84,14 +86,11 @@ def calc_times():
           closeTimeFinal[0] = 1
       else:
           closeTimeFinal = timesForSpeed(kilometers, 15)
-      if openTimeFinal[1] > 60:
-          openTimeFinal[0] += openTimeFinal[1] % 60
-          openTimeFinal[1] = openTimeFinal[1] // 60
-      if closeTimeFinal[1] > 60:
-          closeTimeFinal[0] += closeTimeFinal[1] % 60
-          closeTimeFinal[1] = closeTimeFinal[1] // 60
-      times = "Opening time: " + str(openTimeFinal[0]) + ":" + str(openTimeFinal[1]) + \
-              " Closing time: " + str(closeTimeFinal[0]) + ":" + str(closeTimeFinal[1])
+      timesArray = formatTime(openTimeFinal, closeTimeFinal)
+      openTime = timesArray[0]
+      closeTime = timesArray[1]
+      times = "Opening time: " + openTime + \
+              " Closing time: " + closeTime
       return jsonify(result=times)
   elif kilometers <= 400:
       open_times.append(timesForSpeed(200, 34))
@@ -99,21 +98,18 @@ def calc_times():
       close_times.append(timesForSpeed(200, 15))
       close_times.append(timesForSpeed(kilometers-200, 15))
       for time in open_times:
-          print(str(openTimeFinal[0]) + "\n")
+          print(openTimeHours + "\n")
           openTimeFinal[0] += time[0]
-          print(str(openTimeFinal[0]) + "\n")
+          print(openTimeHours + "\n")
           openTimeFinal[1] += time[1]
-      if openTimeFinal[1] > 60:
-          openTimeFinal[0] += openTimeFinal[1] % 60
-          openTimeFinal[1] = openTimeFinal[1] // 60
       for time in close_times:
           closeTimeFinal[0] += time[0]
           closeTimeFinal[1] += time[1]
-      if closeTimeFinal[1] > 60:
-          closeTimeFinal[0] += closeTimeFinal[1] % 60
-          closeTimeFinal[1] = closeTimeFinal[1] // 60
-      times = "Opening time: " + str(openTimeFinal[0]) + ":" + str(openTimeFinal[1]) + \
-              " Closing time: " + str(closeTimeFinal[0]) + ":" + str(closeTimeFinal[1])
+      timesArray = formatTime(openTimeFinal, closeTimeFinal)
+      openTime = timesArray[0]
+      closeTime = timesArray[1]
+      times = "Opening time: " + openTime + \
+              " Closing time: " + closeTime
       return jsonify(result=times)
   elif kilometers <= 600:
       open_times.append(timesForSpeed(200, 34))
@@ -125,17 +121,14 @@ def calc_times():
       for time in open_times:
           openTimeFinal[0] += time[0]
           openTimeFinal[1] += time[1]
-      if openTimeFinal[1] > 60:
-          openTimeFinal[0] += openTimeFinal[1] % 60
-          openTimeFinal[1] = openTimeFinal[1] // 60
       for time in close_times:
           closeTimeFinal[0] += time[0]
           closeTimeFinal[1] += time[1]
-      if closeTimeFinal[1] > 60:
-          closeTimeFinal[0] += closeTimeFinal[1] % 60
-          closeTimeFinal[1] = closeTimeFinal[1] // 60
-      times = "Opening time: " + str(openTimeFinal[0]) + ":" + str(openTimeFinal[1]) + \
-              " Closing time: " + str(closeTimeFinal[0]) + ":" + str(closeTimeFinal[1])
+      timesArray = formatTime(openTimeFinal, closeTimeFinal)
+      openTime = timesArray[0]
+      closeTime = timesArray[1]
+      times = "Opening time: " + openTime + \
+              " Closing time: " + closeTime
       return jsonify(result=times)
   elif kilometers <= 1000:
       open_times.append(timesForSpeed(200, 34))
@@ -149,17 +142,14 @@ def calc_times():
       for time in open_times:
           openTimeFinal[0] += time[0]
           openTimeFinal[1] += time[1]
-      if openTimeFinal[1] > 60:
-          openTimeFinal[0] += openTimeFinal[1] % 60
-          openTimeFinal[1] = openTimeFinal[1] // 60
       for time in close_times:
           closeTimeFinal[0] += time[0]
           closeTimeFinal[1] += time[1]
-      if closeTimeFinal[1] > 60:
-          closeTimeFinal[0] += closeTimeFinal[1] % 60
-          closeTimeFinal[1] = closeTimeFinal[1] // 60
-      times = "Opening time: " + str(openTimeFinal[0]) + ":" + str(openTimeFinal[1]) + \
-              " Closing time: " + str(closeTimeFinal[0]) + ":" + str(closeTimeFinal[1])
+      timesArray = formatTime(openTimeFinal, closeTimeFinal)
+      openTime = timesArray[0]
+      closeTime = timesArray[1]
+      times = "Opening time: " + openTime + \
+              " Closing time: " + closeTime
       return jsonify(result=times)
   elif kilometers <= 1300:
       open_times.append(timesForSpeed(200, 34))
@@ -175,17 +165,14 @@ def calc_times():
       for time in open_times:
           openTimeFinal[0] += time[0]
           openTimeFinal[1] += time[1]
-      if openTimeFinal[1] > 60:
-          openTimeFinal[0] += openTimeFinal[1] % 60
-          openTimeFinal[1] = openTimeFinal[1] // 60
       for time in close_times:
           closeTimeFinal[0] += time[0]
           closeTimeFinal[1] += time[1]
-      if closeTimeFinal[1] > 60:
-          closeTimeFinal[0] += closeTimeFinal[1] % 60
-          closeTimeFinal[1] = closeTimeFinal[1] // 60
-      times = "Opening time: " + str(openTimeFinal[0]) + ":" + str(openTimeFinal[1]) + \
-              " Closing time: " + str(closeTimeFinal[0]) + ":" + str(closeTimeFinal[1])
+      timesArray = formatTime(openTimeFinal, closeTimeFinal)
+      openTime = timesArray[0]
+      closeTime = timesArray[1]
+      times = "Opening time: " + openTime + \
+              " Closing time: " + closeTime
       return jsonify(result=times)
   else:
       return jsonify(result="Must be 1300 or kilometers!")
@@ -221,6 +208,33 @@ def timesForSpeed(kilometers, speed):
     minutes = int(modf(kilometers / speed)[0] * 60)
     return [hour, minutes]
 
+def formatTime(openTimeArray, closeTimeArray):
+      if openTimeArray[1] > 60:
+          openTimeArray[0] += openTimeArray[1] % 60
+          openTimeArray[1] = openTimeArray[1] // 60
+      elif openTimeArray[1] == 60:
+          openTimeArray[0] += 1
+          openTimeArray[1] = 0
+      if closeTimeArray[1] > 60:
+          closeTimeArray[0] += closeTimeArray[1] % 60
+          closeTimeArray[1] = closeTimeArray[1] // 60
+      elif closeTimeArray[1] == 60:
+          closeTimeArray[0] += 1
+          closeTimeArray[1] = 0
+      if len(str(openTimeArray[1])) == 1:
+          openTimeMinutes = "0" + str(openTimeArray[1])
+      else:
+          openTimeMinutes = str(openTimeArray[1])
+      if len(str(closeTimeArray[1])) == 1:
+          closeTimeMinutes = "0" + str(closeTimeArray[1])
+      else:
+          closeTimeMinutes = str(closeTimeArray[1])
+      openTimeHours = str(openTimeArray[0])
+      closeTimeHours = str(closeTimeArray[0])
+
+      openTime = openTimeHours + ":" + openTimeMinutes
+      closeTime = closeTimeHours + ":" + closeTimeMinutes
+      return [openTime, closeTime]
 
 #############
 
